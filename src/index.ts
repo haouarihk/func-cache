@@ -1,6 +1,11 @@
-export const sum = (a: number, b: number): number => {
-  if ("development" === process.env.NODE_ENV) {
-    console.log("boop");
+export default function cache(func: Function): typeof func {
+  const cached: any = {};
+
+  return (...args: any): typeof func => {
+    const str = args.join(',');
+
+    if (cached[str]) return cached[str];
+    return cached[str] = func(...args);
   }
-  return a + b;
-};
+
+}
