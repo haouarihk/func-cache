@@ -1,6 +1,6 @@
 import cache from "./";
 
-const cachedFibonacci = cache(fibonacci);
+const cachedFibonacci: typeof fibonacci = cache(fibonacci);
 function fibonacci(num: number) {
   let a = 1, b = 0, temp;
 
