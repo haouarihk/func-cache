@@ -28,4 +28,6 @@ function fibonnacci(num: number) {
 
   return b;
 }
+
+console.log(cachedFibonacci(1000)); //-- viewing the result
 ```
