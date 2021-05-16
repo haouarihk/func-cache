@@ -11,7 +11,7 @@ Note that if the function result in different results with the same argument, th
 # How to use:
 
 ```ts
-import funcache from "funcache";
+import funcache from "func-cache";
 
 const cachedFibonacci: typeof fibonnacci = funcache(fibonacci);
 function fibonnacci(num: number) {
