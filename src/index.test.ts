@@ -1,32 +1,32 @@
+//@ts-ignore
+import waitSync from "wait-sync";
 import cache from "./";
 
-const cachedFibonacci: typeof fibonacci = cache(fibonacci);
-function fibonacci(num: number) {
-  let a = 1, b = 0, temp;
-
-  while (num >= 0) {
-    temp = a;
-    a = a + b;
-    b = temp;
-    num--;
-  }
-
-  return b;
+const cachedWait: typeof wait = cache(wait);
+function wait() {
+  waitSync(10)
+  return "10 seconds"
 }
 
 describe("testing cache", () => {
-  it("fibonacci", () => {
-    const t0 = performance.now()
+  it("wait 10", () => {
+    const t0 = performance.now();
 
-    const val1 = cachedFibonacci(1000)
+    const val1 = cachedWait();
 
-    const t1 = performance.now()
+    const t1 = performance.now();
 
-    const val2 = cachedFibonacci(1000)
+    const diff1 = t1 - t0;
+    console.log(diff1);
 
-    const t2 = performance.now()
+    const val2 = cachedWait();
 
-    expect(t2 - t1 < t1 - t0).toBe(true);
+    const t2 = performance.now();
+
+    const diff2 = t2 - t1;
+    console.log(diff2);
+
+    expect(diff2 < diff1).toBe(true);
 
     expect(val1).toEqual(val2);
   });
