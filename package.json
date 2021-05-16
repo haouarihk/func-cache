@@ -1,8 +1,10 @@
 {
   "name": "func-cache",
-  "version": "0.0.1-development",
+  "version": "1.0.0",
   "private": false,
   "description": "TypeScript library for caching static functions",
+  "tags": ["cache", "function", "simple"],
+
   "repository": {
     "type": "git",
     "url": "https://github.com/haouarihk/func-cache.git"
