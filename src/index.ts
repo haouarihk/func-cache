@@ -1,4 +1,4 @@
-export default function cache(func: Function): typeof func {
+export default function cache(func: Function): typeof func | any {
   const cached: any = {};
 
   return (...args: any): typeof func => {
