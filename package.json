@@ -1,17 +1,17 @@
 {
-  "name": "typescript-library-template",
-  "version": "0.0.0-development",
+  "name": "func-cache",
+  "version": "0.0.1-development",
   "private": false,
-  "description": "TypeScript library template to focus on ⌨️ coding, 🙌 collaborating and 🚀 shipping",
+  "description": "TypeScript library for caching static functions",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vvo/typescript-library-template.git"
+    "url": "https://github.com/haouarihk/func-cache.git"
   },
   "license": "MIT",
-  "author": "Vincent Voyer <vincent@codeagain.com>",
+  "author": "haouarihk",
   "sideEffects": false,
   "main": "dist/index.js",
-  "module": "dist/typescript-library-template.esm.js",
+  "module": "dist/func-cache.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "src/",
