@@ -13,3 +13,6 @@ yarn-error.log*
 package-lock.json
 
 .env
+
+# logs
+*.log
