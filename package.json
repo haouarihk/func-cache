@@ -1,0 +1,106 @@
+{
+  "name": "typescript-library-template",
+  "version": "0.0.0-development",
+  "private": false,
+  "description": "TypeScript library template to focus on ⌨️ coding, 🙌 collaborating and 🚀 shipping",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vvo/typescript-library-template.git"
+  },
+  "license": "MIT",
+  "author": "Vincent Voyer <vincent@codeagain.com>",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "module": "dist/typescript-library-template.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "src/",
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsdx build",
+    "format": "tsdx lint src --fix",
+    "lint": "tsdx lint src",
+    "prepare": "tsdx build",
+    "semantic-release": "semantic-release",
+    "start": "tsdx watch",
+    "test": "tsdx test"
+  },
+  "prettier": {
+    "trailingComma": "all"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.23.0",
+    "@typescript-eslint/parser": "4.23.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jest": "24.3.6",
+    "prettier-plugin-packagejson": "2.2.11",
+    "semantic-release": "17.2.4",
+    "semantic-release-cli": "5.4.3",
+    "tsdx": "0.14.1",
+    "tslib": "2.0.3",
+    "typescript": "4.0.7"
+  },
+  "peerDependencies": {},
+  "engines": {
+    "node": ">=12"
+  },
+  "eslint": {
+    "env": {
+      "es6": true,
+      "jest": true,
+      "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2019,
+      "sourceType": "module"
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:jest/recommended",
+      "plugin:import/recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "arrow-body-style": [
+        "error",
+        "always"
+      ],
+      "curly": "error",
+      "import/order": [
+        "error",
+        {
+          "newlines-between": "always"
+        }
+      ]
+    },
+    "settings": {
+      "import/extensions": [
+        ".ts"
+      ],
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".ts"
+          ]
+        }
+      }
+    }
+  },
+  "renovate": {
+    "extends": [
+      "config:js-lib",
+      ":automergePatch",
+      ":automergeBranch",
+      ":automergePatch",
+      ":automergeBranch",
+      ":automergeLinters",
+      ":automergeTesters",
+      ":automergeTypes"
+    ]
+  }
+}
