@@ -4,7 +4,7 @@ export default function cache(func: Function): typeof func | any {
   return (...args: any) => {
     const str = args.join(',');
 
-    if (cached[str]) return cached[str];
+    if (str in cached) return cached[str];
     return cached[str] = func(...args);
   }
 
