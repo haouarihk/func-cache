@@ -16,3 +16,6 @@ package-lock.json
 
 # logs
 *.log
+
+# history
+.history

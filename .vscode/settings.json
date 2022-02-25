@@ -9,5 +9,10 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[markdown]": {
     "editor.formatOnSave": true
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#332E0B",
+    "titleBar.activeBackground": "#47400F",
+    "titleBar.activeForeground": "#FCFAF0"
   }
 }
