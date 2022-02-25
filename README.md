@@ -31,3 +31,11 @@ function fibonnacci(num: number) {
 
 console.log(cachedFibonacci(1000)); //-- viewing the result
 ```
+
+# Options:
+
+```ts
+funcache(fibonacci, {
+  lifeTime: 1000, // (1 sec) in miliseconds
+});
+```
