@@ -1,25 +1,24 @@
-//@ts-ignore
-import waitSync from "wait-sync";
+import { aforSec } from "aforwait"
 import cache from "./";
 
 const cachedWait: typeof wait = cache(wait);
-function wait() {
-  waitSync(10)
-  return "10 seconds"
+async function wait() {
+  await aforSec(1);
+  return "1 seconds"
 }
 
 describe("testing cache", () => {
-  it("wait 10", () => {
+  it("wait 1", async () => {
     const t0 = performance.now();
 
-    const val1 = cachedWait();
+    const val1 = await cachedWait();
 
     const t1 = performance.now();
 
     const diff1 = t1 - t0;
     console.log(diff1);
 
-    const val2 = cachedWait();
+    const val2 = await cachedWait();
 
     const t2 = performance.now();
 
