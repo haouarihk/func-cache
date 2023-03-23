@@ -13,7 +13,7 @@ Note that if the function result in different results with the same argument, th
 ```ts
 import funcache from "func-cache";
 
-const cachedFibonacci: typeof fibonnacci = funcache(fibonacci);
+const cachedFibonacci = funcache(fibonacci);
 function fibonnacci(num: number) {
   let a = 1,
     b = 0,

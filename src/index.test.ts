@@ -1,7 +1,7 @@
 import { aforSec } from "aforwait"
 import cache from "./";
 
-const cachedWait: typeof wait = cache(wait);
+const cachedWait = cache(wait);
 async function wait() {
   await aforSec(1);
   return "1 seconds"
