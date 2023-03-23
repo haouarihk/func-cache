@@ -1,7 +1,9 @@
 import { aforSec } from "aforwait"
 import cache from "./";
 
-const cachedWait = cache(wait);
+const cachedWait = cache(wait, {
+  lifeTime: 3000
+});
 async function wait() {
   await aforSec(1);
   return "1 seconds"
@@ -28,5 +30,14 @@ describe("testing cache", () => {
     expect(diff2 < diff1).toBe(true);
 
     expect(val1).toEqual(val2);
-  });
+
+
+    // test expiration
+    await aforSec(4);
+    const t3 = performance.now();
+    await cachedWait();
+    const t4 = performance.now();
+    const diff3 = t4 - t3;
+    expect(diff3 > 900).toBe(true);
+  }, 10000);
 });
