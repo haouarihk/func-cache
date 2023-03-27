@@ -1,13 +1,16 @@
 import { aforSec } from "aforwait"
-import cache from "./";
+import funCache from ".";
 
-const cachedWait = cache(wait, {
-  lifeTime: 3000
-});
-async function wait() {
+
+const cachedWait = funCache(async () => {
   await aforSec(1);
   return "1 seconds"
-}
+}, {
+  lifeTime: 3000,
+  onDataUpdate: console.log,
+  async: true
+});
+
 
 describe("testing cache", () => {
   it("wait 1", async () => {
