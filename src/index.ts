@@ -7,6 +7,8 @@ export interface FCOptions {
 
   /** debounce time wait to call onDataUpdate, default 1000ms */
   debounceTimer?: number;
+
+  /** incase the call is async, (sometimes the script doesn't detect it's async and wont run the await for it) default: false */
   async?: boolean;
 }
 
@@ -58,5 +60,44 @@ export default function funCache<T extends Function>(func: T, options: FCOptions
   return ((...args: any) =>
     cache(func(...args), args.join(","))
   ) as any
+}
 
+
+
+export function fSCacher(tmpPath: string) {
+  const fs = require("fs")
+  return {
+    initialCache: JSON.parse(
+      // @ts-ignore
+      fs.existsSync(tmpPath)
+        ? fs.readFileSync(tmpPath, {
+          encoding: "utf-8",
+        })
+        : "{}"
+    ),
+    onDataUpdate: (ndata: any) => {
+      try {
+        fs.unlinkSync(tmpPath);
+        // eslint-disable-next-line no-empty
+      } catch { }
+
+      fs.writeFileSync(tmpPath, JSON.stringify(ndata), {
+        encoding: "utf-8",
+        flag: "w",
+      });
+    },
+  };
+}
+
+
+export function localStorageCacher(tmpPath: string, options?: { localStorage?: Storage }) {
+  const ls = options?.localStorage || window.localStorage;
+  return {
+    initialCache: JSON.parse(
+      ls.getItem(tmpPath) || "{}"
+    ),
+    onDataUpdate: (ndata: any) => {
+      ls.setItem(tmpPath, JSON.stringify(ndata))
+    },
+  };
 }

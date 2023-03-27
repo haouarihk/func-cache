@@ -1,5 +1,5 @@
 import { aforSec } from "aforwait"
-import funCache from ".";
+import funCache, { fSCacher } from ".";
 
 
 const cachedWait = funCache(async () => {
@@ -7,8 +7,8 @@ const cachedWait = funCache(async () => {
   return "1 seconds"
 }, {
   lifeTime: 3000,
-  onDataUpdate: console.log,
-  async: true
+  async: true,
+  ...fSCacher("dist/test.json")
 });
 
 

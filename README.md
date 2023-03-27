@@ -36,6 +36,19 @@ console.log(cachedFibonacci(1000)); //-- viewing the result
 
 ```ts
 funcache(fibonacci, {
-  lifeTime: 1000, // (1 sec) in miliseconds
+  // (1 sec) in miliseconds
+  lifeTime: 1000, 
+  
+  // place to store the cache, incase of restarts (browser only)
+  ...localStorageCacher("_cachePlace_for_fibonacci"), 
+
+  // place to store the cache, incase of restarts (server only)
+  ...fSCacher("./_cachePlace_for_fibonacci.json"), 
+
+  /** debounce time wait to call onDataUpdate, default 1000ms */
+  debounceTimer: 200,
+
+  /** incase the call is async, (sometimes the script doesn't detect it's async and wont run the await for it) default: false */
+  async: true,
 });
 ```
