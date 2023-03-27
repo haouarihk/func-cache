@@ -49,8 +49,6 @@ export default function funCache<T extends Function>(func: T, options: FCOptions
     return cached[str]
   }
 
-  console.log(util.types.isAsyncFunction(func))
-
   if (options.async || util.types.isAsyncFunction(func)) {
     return (async (...args: any) =>
       await asyncCache(() => func(...args), args.join(","))
