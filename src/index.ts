@@ -10,6 +10,9 @@ export interface FCOptions {
 
   /** incase the call is async, (sometimes the script doesn't detect it's async and wont run the await for it) default: false */
   async?: boolean;
+
+  /** shows logs */
+  debug?: boolean;
 }
 
 
@@ -20,7 +23,13 @@ export default function funCache<T extends Function>(func: T, options: FCOptions
   };
 
   const updateData = options.onDataUpdate ? debounce(() => {
-    options.onDataUpdate?.(cached);
+    try {
+      options.onDataUpdate?.(cached);
+    } catch (err) {
+      if (options.debug) {
+        console.error(err)
+      }
+    }
   }, options.debounceTimer) : undefined;
 
   const checkExpiry = () => {
