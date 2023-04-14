@@ -35,6 +35,9 @@ console.log(cachedFibonacci(1000)); //-- viewing the result
 # Options:
 
 ```ts
+import { fSCacher } from "func-cache/src/fs";
+import funcache, { localStorageCacher } from "func-cache";
+
 funcache(fibonacci, {
   // (1 sec) in miliseconds
   lifeTime: 1000, 

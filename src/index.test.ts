@@ -1,5 +1,6 @@
 import { aforSec } from "aforwait"
-import funCache, { fSCacher } from ".";
+import funCache from ".";
+import { fSCacher } from "./fs";
 
 
 const cachedWait = funCache(async () => {

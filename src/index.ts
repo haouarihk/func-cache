@@ -73,32 +73,6 @@ export default function funCache<T extends Function>(func: T, options: FCOptions
 
 
 
-export function fSCacher(tmpPath: string) {
-  const fs = require("fs")
-  return {
-    initialCache: JSON.parse(
-      // @ts-ignore
-      fs.existsSync(tmpPath)
-        ? fs.readFileSync(tmpPath, {
-          encoding: "utf-8",
-        })
-        : "{}"
-    ),
-    onDataUpdate: (ndata: any) => {
-      try {
-        fs.unlinkSync(tmpPath);
-        // eslint-disable-next-line no-empty
-      } catch { }
-
-      fs.writeFileSync(tmpPath, JSON.stringify(ndata), {
-        encoding: "utf-8",
-        flag: "w",
-      });
-    },
-  };
-}
-
-
 export function localStorageCacher(tmpPath: string, options?: { localStorage?: Storage }) {
   const ls = options?.localStorage || window.localStorage;
   return {
