@@ -65,18 +65,3 @@ const options = {
 };
 
 ```
-
-
-# How to use with Redis/Upstash:
-
-```ts
-import redisCacher from "func-cache/tools/redis";
-import upstashCacher from "func-cache/tools/upstash";
-
-// to use redis or upstash, you need to pass the client in the options (see the examples below)
-import redis from "redis";
-import upstash from "upstash";
-
-const redisClient = redis.createClient();
-const upstashClient = upstash.createClient();
-
