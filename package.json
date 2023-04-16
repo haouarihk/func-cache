@@ -1,6 +1,6 @@
 {
   "name": "func-cache",
-  "version": "2.0.71",
+  "version": "2.0.72",
   "private": false,
   "description": "TypeScript library for caching static functions",
   "keywords": [
@@ -22,10 +22,10 @@
   "module": "dist/func-cache.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "src/",
-    "dist/",
-    "src/tools",
-    "dist/tools",
+    "src/*",
+    "dist/*",
+    "src/tools/*",
+    "dist/tools/*",
     "LICENSE",
     "README.md"
   ],
@@ -129,18 +129,23 @@
     },
     "./fs": {
       "types": "./dist/tools/fs.d.ts",
-      "import": "./dist/tools/fs.d.ts",
-      "require": "./dist/tools/fs.d.ts"
+      "import": "./src/tools/fs.ts",
+      "require": "./src/tools/fs.ts"
     },
     "./redis": {
       "types": "./dist/tools/redis.d.ts",
-      "import": "./dist/tools/redis.d.ts",
-      "require": "./dist/tools/redis.d.ts"
+      "import": "./src/tools/redis.ts",
+      "require": "./src/tools/redis.ts"
     },
     "./upstash": {
       "types": "./dist/tools/upstash.d.ts",
-      "import": "./dist/tools/upstash.d.ts",
-      "require": "./dist/tools/upstash.d.ts"
+      "import": "./src/tools/upstash.ts",
+      "require": "./src/tools/upstash.ts"
+    },
+    "./tools": {
+      "types": "./dist/tools",
+      "import": "./src/tools",
+      "require": "./src/tools"
     }
   }
 }
