@@ -1,6 +1,6 @@
 {
   "name": "func-cache",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -13,7 +13,8 @@
   ],
   "files": [
     "dist/**/*",
-    "src/**/*"
+    "src/**/*",
+    "tools/**/*"
   ],
   "engines": {
     "node": ">=10"
