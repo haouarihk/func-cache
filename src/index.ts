@@ -1,19 +1,5 @@
 import debounce from "debounce";
 import util from "util";
-export interface FCOptions {
-  lifeTime: number;
-  onDataUpdate?: (nData: any) => void;
-  initialCache?: any;
-
-  /** debounce time wait to call onDataUpdate, default 1000ms */
-  debounceTimer?: number;
-
-  /** incase the call is async, (sometimes the script doesn't detect it's async and wont run the await for it) default: false */
-  async?: boolean;
-
-  /** shows logs */
-  debug?: boolean;
-}
 
 
 export default function funCache<T extends Function>(func: T, options: FCOptions = { lifeTime: 0, debounceTimer: 1000, async: false }): T & { clearCache: () => void } {
