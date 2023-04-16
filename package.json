@@ -1,6 +1,6 @@
 {
   "name": "func-cache",
-  "version": "2.0.7",
+  "version": "2.0.71",
   "private": false,
   "description": "TypeScript library for caching static functions",
   "keywords": [
