@@ -1,6 +1,6 @@
 {
   "name": "func-cache",
-  "version": "2.0.72",
+  "version": "2.0.73",
   "private": false,
   "description": "TypeScript library for caching static functions",
   "keywords": [
@@ -127,20 +127,20 @@
       "import": "./dist/index.js",
       "require": "./dist/func-cache.cjs.production.min.cjs"
     },
-    "./fs": {
+    "./src/tools/fs": {
       "types": "./dist/tools/fs.d.ts",
-      "import": "./src/tools/fs.ts",
-      "require": "./src/tools/fs.ts"
+      "import": "./src/tools/fs",
+      "require": "./src/tools/fs"
     },
-    "./redis": {
+    "./src/tools/redis": {
       "types": "./dist/tools/redis.d.ts",
-      "import": "./src/tools/redis.ts",
-      "require": "./src/tools/redis.ts"
+      "import": "./src/tools/redis",
+      "require": "./src/tools/redis"
     },
-    "./upstash": {
+    "./src/tools/upstash": {
       "types": "./dist/tools/upstash.d.ts",
-      "import": "./src/tools/upstash.ts",
-      "require": "./src/tools/upstash.ts"
+      "import": "./src/tools/upstash",
+      "require": "./src/tools/upstash"
     },
     "./tools": {
       "types": "./dist/tools",
