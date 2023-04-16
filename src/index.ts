@@ -1,12 +1,18 @@
 import debounce from "debounce";
 import util from "util";
 
-
 export default function funCache<T extends Function>(func: T, options: FCOptions = { lifeTime: 0, debounceTimer: 1000, async: false }): T & { clearCache: () => void } {
   let cached: any = {
     ____timeOfCreation: Date.now(),
     ...options.initialCache
   };
+
+  let firstTimeDone = !!options.initialCache;
+  const getData = async () => {
+    await options.getCache?.()?.then((data: any) => {
+      cached = { ...data, ...cached };
+    }) || {};
+  }
 
   const updateData = options.onDataUpdate ? debounce(() => {
     try {
@@ -23,38 +29,40 @@ export default function funCache<T extends Function>(func: T, options: FCOptions
       cached = { ____timeOfCreation: cached.____timeOfCreation }
   }
 
-  const cache = (getnewval: Function, str: any) => {
+  const cachedFN = ((...args: any) => {
+
     checkExpiry();
 
+    const str = args.join(",");
 
     if (str in cached) return cached[str];
-    cached[str] = getnewval();
 
+    const re = func(...args);
+
+    //async
+    if (options.async || !util.types.isPromise(re))
+      return new Promise(async (s, r) => {
+        try {
+          if (!firstTimeDone) {
+            await getData();
+            firstTimeDone = true;
+          }
+
+          const val = await re;
+          cached[str] = val;
+          updateData?.();
+          return s(val)
+
+        } catch (err) {
+          r(err)
+        }
+      })
+
+    // sync
+    cached[str] = re;
     updateData?.();
-
-    return cached[str]
-  }
-
-  const asyncCache = async (getnewval: Function, str: any) => {
-    checkExpiry();
-
-    if (str in cached) return cached[str];
-    cached[str] = await getnewval();
-
-    updateData?.();
-
-    return cached[str]
-  }
-
-  if (options.async || util.types.isAsyncFunction(func)) {
-    return (async (...args: any) =>
-      await asyncCache(() => func(...args), args.join(","))
-    ) as any
-  }
-
-  const cachedFN = ((...args: any) =>
-    cache(func(...args), args.join(","))
-  ) as any;
+    return re;
+  }) as any;
 
   cachedFN.clearCache = () => {
     cached = { ____timeOfCreation: Date.now() }
@@ -75,6 +83,68 @@ export function localStorageCacher(tmpPath: string, options?: { localStorage?: S
     ),
     onDataUpdate: (ndata: any) => {
       ls.setItem(tmpPath, JSON.stringify(ndata))
+    },
+  };
+}
+
+
+
+
+export async function fSCacher(tmpPath: string) {
+  const fs = require("fs");
+  const fsPromises = require("fs/promises");
+
+  return {
+    initialCache: JSON.parse(
+      // @ts-ignore
+      fs.existsSync(tmpPath)
+        ? fs.readFileSync(tmpPath, {
+          encoding: "utf-8",
+        })
+        : "{}"
+    ),
+    onDataUpdate: async (ndata: any) => {
+      try {
+        await fsPromises.unlink(tmpPath);
+        // eslint-disable-next-line no-empty
+      } catch { }
+
+      await fsPromises.writeFile(tmpPath, JSON.stringify(ndata), {
+        encoding: "utf-8",
+        flag: "w",
+      });
+    },
+  };
+}
+
+import type { RedisClientType } from 'redis';
+
+export function redisCacher(tmpPath: string, options: { client: RedisClientType }): Partial<FCOptions> {
+  const red = options.client;
+  return {
+    async getCache() {
+      return JSON.parse(
+        await red.get(tmpPath) || "{}"
+      )
+    },
+    onDataUpdate: async (ndata: any) => {
+      await red.set(tmpPath, JSON.stringify(ndata))
+    },
+  };
+}
+
+import type { Redis } from '@upstash/redis';
+
+export function upstashCacher(tmpPath: string, options: { client: Redis }): Partial<FCOptions> {
+  const red = options.client;
+  return {
+    async getCache() {
+      return JSON.parse(
+        await red.get(tmpPath) || "{}"
+      )
+    },
+    onDataUpdate: async (ndata: any) => {
+      await red.set(tmpPath, JSON.stringify(ndata))
     },
   };
 }

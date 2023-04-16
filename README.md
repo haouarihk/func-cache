@@ -29,11 +29,9 @@ console.log(cachedFibonacci.clearCache()); //-- to clear the cache
 # Options:
 
 ```ts
-import fSCacher from "func-cache/tools/fs"; // only for server
-import redisCacher from "func-cache/tools/redis"; // only for server
-import upstashCacher from "func-cache/tools/upstash"; // only for server
 
-import funcache, { localStorageCacher } from "func-cache";
+
+import funcache, { localStorageCacher, fSCacher, redisCacher, upstashCacher } from "func-cache";
 
 const options = {
   // (1 sec) in miliseconds

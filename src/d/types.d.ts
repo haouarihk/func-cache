@@ -1,10 +1,13 @@
 interface FCOptions {
     lifeTime: number;
 
-    onDataUpdate?: (nData: any) => void;
+    /** incase you want to save the data somewhere else and it's async */
+    onDataUpdate?: (nData: any) => Promise<void>;
 
+    /** incase you want to get the initial data from somewhere else */
     getCache?: () => Promise<object>;
-    initialCache?: object;
+
+    initialCache?: any;
 
     /** debounce time wait to call onDataUpdate, default 1000ms */
     debounceTimer?: number;
