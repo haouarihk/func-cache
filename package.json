@@ -1,6 +1,6 @@
 {
   "name": "func-cache",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": false,
   "description": "TypeScript library for caching static functions",
   "keywords": [
@@ -24,6 +24,7 @@
   "files": [
     "src/",
     "dist/",
+    "tools/",
     "LICENSE",
     "README.md"
   ],
@@ -118,24 +119,5 @@
     "@upstash/redis": "^1.20.3",
     "debounce": "^1.2.1",
     "redis": "^4.6.5"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/func-cache.esm.js",
-      "require": "./dist/index.js"
-    },
-    "./package.json": "./package.json",
-    "./tools/fs": {
-      "types": "./tools/fs.d.ts",
-      "default": "./tools/fs.ts"
-    },
-    "./tools/redis": {
-      "types": "./tools/redis.d.ts",
-      "default": "./tools/redis.ts"
-    },
-    "./tools/upstash": {
-      "types": "./tools/upstash.d.ts",
-      "default": "./tools/upstash.ts"
-    }
   }
 }
