@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 
 
 export default function fSCacher(tmpPath: string) {
@@ -7,7 +7,7 @@ export default function fSCacher(tmpPath: string) {
     return {
         initialCache: JSON.parse(
             // @ts-ignore
-            readFileSync(tmpPath)
+            existsSync(tmpPath)
                 ? readFileSync(tmpPath, {
                     encoding: "utf-8",
                 })
