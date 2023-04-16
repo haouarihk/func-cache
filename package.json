@@ -6,7 +6,10 @@
   "keywords": [
     "cache",
     "function",
-    "simple"
+    "simple",
+    "redis",
+    "memory",
+    "upstash",
   ],
   "repository": {
     "type": "git",
