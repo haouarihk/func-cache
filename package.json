@@ -1,6 +1,6 @@
 {
   "name": "func-cache",
-  "version": "2.1.21",
+  "version": "2.1.22",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
