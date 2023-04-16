@@ -9,7 +9,7 @@
     "simple",
     "redis",
     "memory",
-    "upstash",
+    "upstash"
   ],
   "repository": {
     "type": "git",
