@@ -16,7 +16,7 @@ export interface FCOptions {
 }
 
 
-export default function funCache<T extends Function>(func: T, options: FCOptions = { lifeTime: 0, debounceTimer: 1000, async: false }): T {
+export default function funCache<T extends Function>(func: T, options: FCOptions = { lifeTime: 0, debounceTimer: 1000, async: false }): T & { clearCache: () => void } {
   let cached: any = {
     ____timeOfCreation: Date.now(),
     ...options.initialCache
@@ -66,9 +66,17 @@ export default function funCache<T extends Function>(func: T, options: FCOptions
     ) as any
   }
 
-  return ((...args: any) =>
+  const cachedFN = ((...args: any) =>
     cache(func(...args), args.join(","))
-  ) as any
+  ) as any;
+
+  cachedFN.clearCache = () => {
+    cached = { ____timeOfCreation: Date.now() }
+  }
+
+  cachedFN.noCache = (...args: any) => func(...args);
+
+  return cachedFN;
 }
 
 

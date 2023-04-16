@@ -13,45 +13,70 @@ Note that if the function result in different results with the same argument, th
 ```ts
 import funcache from "func-cache";
 
-const cachedFibonacci = funcache(fibonacci);
-function fibonnacci(num: number) {
-  let a = 1,
-    b = 0,
-    temp;
+const cachedFibonacci = funcache((num: number) => {
+    // ... your function here
+}, options); // about the options, see below
 
-  while (num >= 0) {
-    temp = a;
-    a = a + b;
-    b = temp;
-    num--;
-  }
-
-  return b;
-}
 
 console.log(cachedFibonacci(1000)); //-- viewing the result
+
+console.log(cachedFibonacci.noCache(1000)); //-- run without caching
+
+console.log(cachedFibonacci.clearCache()); //-- to clear the cache
 ```
+
 
 # Options:
 
 ```ts
-import { fSCacher } from "func-cache/src/fs";
+import fSCacher from "func-cache/tools/fs"; // only for server
+import redisCacher from "func-cache/tools/redis"; // only for server
+import upstashCacher from "func-cache/tools/upstash"; // only for server
+
 import funcache, { localStorageCacher } from "func-cache";
 
-funcache(fibonacci, {
+const options = {
   // (1 sec) in miliseconds
   lifeTime: 1000, 
-  
-  // place to store the cache, incase of restarts (browser only)
-  ...localStorageCacher("_cachePlace_for_fibonacci"), 
-
-  // place to store the cache, incase of restarts (server only)
-  ...fSCacher("./_cachePlace_for_fibonacci.json"), 
 
   /** debounce time wait to call onDataUpdate, default 1000ms */
   debounceTimer: 200,
 
   /** incase the call is async, (sometimes the script doesn't detect it's async and wont run the await for it) default: false */
   async: true,
-});
+
+
+    
+  // place to store the cache, incase of restarts (browser only)
+  ...localStorageCacher("_cachePlace_for_fibonacci"), 
+
+  // place to store the cache, incase of restarts (server only). fs way
+  ...fSCacher("./_cachePlace_for_fibonacci.json"), 
+
+  // place to store the cache, incase of restarts (server only). redis way
+  ...redisCacher(yourFunction, {
+    client: redisClient,
+  }),
+
+  // place to store the cache, incase of restarts (server only). upstash way
+  ...upstashCacher(upstashClient, {
+    client: upstashClient,
+  }),
+};
+
 ```
+
+
+# How to use with Redis/Upstash:
+
+```ts
+import redisCacher from "func-cache/tools/redis";
+import upstashCacher from "func-cache/tools/upstash";
+
+// to use redis or upstash, you need to pass the client in the options (see the examples below)
+import redis from "redis";
+import upstash from "upstash";
+
+const redisClient = redis.createClient();
+const upstashClient = upstash.createClient();
+
