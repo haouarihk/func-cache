@@ -54,12 +54,12 @@ const options = {
   ...fSCacher("./_cachePlace_for_fibonacci.json"), 
 
   // place to store the cache, incase of restarts (server only). redis way
-  ...redisCacher(yourFunction, {
+  ...redisCacher("_cachePlace_for_fibonacci", {
     client: redisClient,
   }),
 
   // place to store the cache, incase of restarts (server only). upstash way
-  ...upstashCacher(upstashClient, {
+  ...upstashCacher("_cachePlace_for_fibonacci", {
     client: upstashClient,
   }),
 };
