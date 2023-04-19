@@ -44,8 +44,10 @@ export default function funCache<T extends Function>(func: T, options: FCOptions
       return new Promise(async (s, r) => {
         try {
           if (!firstTimeDone) {
-            await getData();
             firstTimeDone = true;
+            try {
+              await getData();
+            } catch { }
           }
 
           const val = await re;
