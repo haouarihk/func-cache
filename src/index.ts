@@ -121,32 +121,32 @@ export async function fSCacher(tmpPath: string) {
 
 import type { RedisClientType } from 'redis';
 
-export function redisCacher(tmpPath: string, options: { client: RedisClientType }): Partial<FCOptions> {
+export function redisCacher(tmpPath: string, options: { client?: RedisClientType }): Partial<FCOptions> {
   const red = options.client;
   return {
     async getCache() {
       return JSON.parse(
-        await red.get(tmpPath) || "{}"
+        red && await red.get(tmpPath) || "{}"
       )
     },
     onDataUpdate: async (ndata: any) => {
-      await red.set(tmpPath, JSON.stringify(ndata))
+      red && await red.set(tmpPath, JSON.stringify(ndata))
     },
   };
 }
 
 import type { Redis } from '@upstash/redis';
 
-export function upstashCacher(tmpPath: string, options: { client: Redis }): Partial<FCOptions> {
+export function upstashCacher(tmpPath: string, options: { client?: Redis }): Partial<FCOptions> {
   const red = options.client;
   return {
     async getCache() {
       return JSON.parse(
-        await red.get(tmpPath) || "{}"
+        red && await red.get(tmpPath) || "{}"
       )
     },
     onDataUpdate: async (ndata: any) => {
-      await red.set(tmpPath, JSON.stringify(ndata))
+      red && await red.set(tmpPath, JSON.stringify(ndata))
     },
   };
 }
